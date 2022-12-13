@@ -4,6 +4,8 @@ from flask_restful import Resource, Api
 app = Flask(__name__)
 api = Api(app)
 
+
+
 #create mock database
 fakeDatabase = {
     1:{'name':'Clean car'},
@@ -15,4 +17,14 @@ fakeDatabase = {
 class Items(Resource):
     def get(self):
         return fakeDatabase
+    
+class Item(Resource):
+    def get(self, pk):
+        return fakeDatabase[pk]
 
+api.add_resource(Items, '/')
+api.add_resource(Item, '/<int:pk>')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
